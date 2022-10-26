@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="NewPerm">
+    <output-path>$PROJECT_DIR$/out/artifacts/NewPerm</output-path>
+    <root id="archive" name="NewPerm.jar">
+      <element id="module-output" name="NewPerm v2" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/plugin.yml" />
+    </root>
+  </artifact>
+</component>
