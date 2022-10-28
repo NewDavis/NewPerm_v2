@@ -1,6 +1,7 @@
 package me.newdavis.sql;
 
 import me.newdavis.file.SettingsFile;
+import org.bukkit.Bukkit;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -72,6 +73,7 @@ public class MySQL {
 
             ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS player_permissions (UUID VARCHAR(40),PERMISSION VARCHAR(40))");
             ps.executeUpdate();
+            disconnect();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

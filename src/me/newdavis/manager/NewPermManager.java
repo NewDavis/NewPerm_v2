@@ -621,8 +621,9 @@ public class NewPermManager {
                 ps.setString(1, p.getUniqueId().toString());
                 ResultSet rs = ps.executeQuery();
 
+
                 if (rs.next()) {
-                    return rs.getString("ROLE");
+                    role = rs.getString("ROLE");
                 }else{
                     ps = mysql.getConnection().prepareStatement("INSERT INTO " + SQLTables.PLAYER.getTable() + " (UUID,ROLE,PREFIX,SUFFIX) VALUES (?,?,?,?)");
                     ps.setString(1, p.getUniqueId().toString());
@@ -632,6 +633,7 @@ public class NewPermManager {
                     ps.executeUpdate();
                 }
                 mysql.disconnect();
+                return role;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
