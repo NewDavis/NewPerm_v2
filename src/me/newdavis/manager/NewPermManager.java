@@ -611,8 +611,8 @@ public class NewPermManager {
     public static String getPlayerRole(OfflinePlayer p) {
         String role = getDefaultRole();
 
-        if(playerRole.containsKey(p)) {
-            return playerRole.get(p);
+        if(playerRole.containsKey(p.getUniqueId().toString())) {
+            return playerRole.get(p.getUniqueId().toString());
         }
 
         if (mySQLEnabled) {
@@ -761,7 +761,7 @@ public class NewPermManager {
     }
 
     public static boolean hasPlayerSuffix(OfflinePlayer p) {
-        if(playerSuffix.containsKey(p)) {
+        if(playerSuffix.containsKey(p.getUniqueId().toString())) {
             return true;
         }
 
@@ -789,8 +789,8 @@ public class NewPermManager {
     public static String getPlayerSuffix(OfflinePlayer p) {
         String suffix = "";
 
-        if(playerSuffix.containsKey(p)) {
-            return playerSuffix.get(p);
+        if(playerSuffix.containsKey(p.getUniqueId().toString())) {
+            return playerSuffix.get(p.getUniqueId().toString());
         }
 
         if (mySQLEnabled) {
