@@ -633,7 +633,6 @@ public class NewPermManager {
                     ps.executeUpdate();
                 }
                 mysql.disconnect();
-                return role;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
