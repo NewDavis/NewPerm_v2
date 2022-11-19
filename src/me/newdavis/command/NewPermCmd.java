@@ -59,7 +59,7 @@ public class NewPermCmd implements CommandExecutor {
                                 p.sendMessage(NewPerm.prefix + " §7Es sind §c" + roles.size() + " Rolle§8(§cn§8) §7erstellt.");
                                 p.sendMessage(rolesString);
                             } else if (NewPermManager.getRoleList().contains(role)) {
-                                RoleMenuSpecificRole.openPlayerMenu(p, role);
+                                RoleMenuSpecificRole.openSpecificRoleMenu(p, role);
                             } else {
                                 p.sendMessage(NewPerm.usageRole);
                             }

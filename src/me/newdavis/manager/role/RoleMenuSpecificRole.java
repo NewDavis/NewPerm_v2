@@ -17,7 +17,7 @@ import java.util.List;
 
 public class RoleMenuSpecificRole {
 
-    public static void openPlayerMenu(Player p, String role) {
+    public static void openSpecificRoleMenu(Player p, String role) {
         EnterValue.removePlayerLists(p);
         Inventory inventory = Bukkit.createInventory(null, 9*5, "§7Role §8● §c" + role);
 

@@ -140,7 +140,7 @@ public class OnInventoryClickListener implements Listener {
                                 p.closeInventory();
                             } else if (clickedSlot == 36) {
                                 RolePermissionMenu.rolePermissionPage.remove(p);
-                                RoleMenuSpecificRole.openPlayerMenu(p, role);
+                                RoleMenuSpecificRole.openSpecificRoleMenu(p, role);
                             } else if (clickedSlot == 39) {
                                 int page = RolePermissionMenu.rolePermissionPage.get(p);
                                 RolePermissionMenu.openPermissionMenu(p, role, page - 1);
@@ -162,7 +162,7 @@ public class OnInventoryClickListener implements Listener {
                             e.setCancelled(true);
                             if (clickedSlot == 36) {
                                 RoleInheritanceMenu.roleInheritancePage.remove(p);
-                                RoleMenuSpecificRole.openPlayerMenu(p, role);
+                                RoleMenuSpecificRole.openSpecificRoleMenu(p, role);
                             } else if (clickedSlot == 39) {
                                 int page = RoleInheritanceMenu.roleInheritancePage.get(p);
                                 RoleInheritanceMenu.openInheritanceMenu(p, role, page - 1);
@@ -198,7 +198,7 @@ public class OnInventoryClickListener implements Listener {
                                 String role = clickedItem.getItemMeta().getDisplayName().replace("§c", "");
                                 if (e.getClick().isLeftClick()) {
                                     if (NewPermManager.getRoleList().contains(role)) {
-                                        RoleMenuSpecificRole.openPlayerMenu(p, role);
+                                        RoleMenuSpecificRole.openSpecificRoleMenu(p, role);
                                     } else {
                                         p.sendMessage(NewPerm.error);
                                     }

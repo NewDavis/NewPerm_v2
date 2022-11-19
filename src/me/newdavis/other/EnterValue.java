@@ -65,7 +65,12 @@ public class EnterValue {
                         OfflinePlayer t = PlayerMenu.playerMenu.get(p);
                         if (NewPermManager.resetPlayerPrefix(t)) {
                             p.sendMessage(NewPerm.prefix + " §cDer Prefix von " + t.getName() + " wurde zurückgesetzt!");
-                            PlayerMenu.openPlayerMenu(p, t);
+                            Bukkit.getScheduler().runTask(NewPerm.getInstance(), new Runnable() {
+                                @Override
+                                public void run() {
+                                    PlayerMenu.openPlayerMenu(p, t);
+                                }
+                            });
                         } else {
                             p.sendMessage(NewPerm.error);
                         }
@@ -73,7 +78,12 @@ public class EnterValue {
                         OfflinePlayer t = PlayerMenu.playerMenu.get(p);
                         if (NewPermManager.resetPlayerSuffix(t)) {
                             p.sendMessage(NewPerm.prefix + " §cDer Suffix von " + t.getName() + " wurde zurückgesetzt!");
-                            PlayerMenu.openPlayerMenu(p, t);
+                            Bukkit.getScheduler().runTask(NewPerm.getInstance(), new Runnable() {
+                                @Override
+                                public void run() {
+                                    PlayerMenu.openPlayerMenu(p, t);
+                                }
+                            });
                         } else {
                             p.sendMessage(NewPerm.error);
                         }
@@ -87,7 +97,12 @@ public class EnterValue {
                     NewPermManager.addPlayerPermission(t, value);
                     p.sendMessage(NewPerm.prefix + " §7Die Permission §c" + value + " §7wurde §c" + t.getName() + " §7hinzugefügt§7.");
                     int page = PlayerPermissionMenu.playerPermPage.get(p);
-                    PlayerPermissionMenu.openPermissionMenu(p, t, page);
+                    Bukkit.getScheduler().runTask(NewPerm.getInstance(), new Runnable() {
+                        @Override
+                        public void run() {
+                            PlayerPermissionMenu.openPermissionMenu(p, t, page);
+                        }
+                    });
                 }else{
                     removeAll(p);
                 }
@@ -105,7 +120,12 @@ public class EnterValue {
                     OfflinePlayer t = PlayerMenu.playerMenu.get(p);
                     NewPermManager.setPlayerSuffix(t, value);
                     p.sendMessage(NewPerm.prefix + " §7Der §cSuffix §7von §c" + t.getName() + " §7wurde zu §7" + value + " §7geändert.");
-                    PlayerMenu.openPlayerMenu(p, t);
+                    Bukkit.getScheduler().runTask(NewPerm.getInstance(), new Runnable() {
+                        @Override
+                        public void run() {
+                            PlayerMenu.openPlayerMenu(p, t);
+                        }
+                    });
                 }else{
                     removeAll(p);
                 }
@@ -114,7 +134,12 @@ public class EnterValue {
                     NewPermManager.addRole(value);
                     p.sendMessage(NewPerm.prefix + " §7Die Rolle §c" + value + " §7wurde §ahinzugefügt§7.");
                     int page = RoleMenu.roleMenuPage.get(p);
-                    RoleMenu.openRoleMenu(p, page);
+                    Bukkit.getScheduler().runTask(NewPerm.getInstance(), new Runnable() {
+                        @Override
+                        public void run() {
+                            RoleMenu.openRoleMenu(p, page);
+                        }
+                    });
                 }else{
                     removeAll(p);
                 }
@@ -123,6 +148,13 @@ public class EnterValue {
                     String role = RoleMenu.roleMenu.get(p);
                     NewPermManager.addRolePermission(role, value);
                     p.sendMessage(NewPerm.prefix + " §7Die §cPermission §8'§7" + value + "§8' §7wurde §c" + role + " §7hinzugefügt.");
+                    int page = RolePermissionMenu.rolePermissionPage.get(p);
+                    Bukkit.getScheduler().runTask(NewPerm.getInstance(), new Runnable() {
+                        @Override
+                        public void run() {
+                            RolePermissionMenu.openPermissionMenu(p, role, page);
+                        }
+                    });
                 }else{
                     removeAll(p);
                 }
@@ -131,6 +163,12 @@ public class EnterValue {
                     String role = RoleMenu.roleMenu.get(p);
                     NewPermManager.setRolePrefix(role, value);
                     p.sendMessage(NewPerm.prefix + " §7Der §cPrefix §7von §c" + role + " §7wurde zu §7" + value + " §7geändert.");
+                    Bukkit.getScheduler().runTask(NewPerm.getInstance(), new Runnable() {
+                        @Override
+                        public void run() {
+                            RoleMenuSpecificRole.openSpecificRoleMenu(p, role);
+                        }
+                    });
                 }else{
                     removeAll(p);
                 }
@@ -139,6 +177,12 @@ public class EnterValue {
                     String role = RoleMenu.roleMenu.get(p);
                     NewPermManager.setRoleSuffix(role, value);
                     p.sendMessage(NewPerm.prefix + " §7Der §cSuffix §7von §c" + role + " §7wurde zu §7" + value + " §7geändert.");
+                    Bukkit.getScheduler().runTask(NewPerm.getInstance(), new Runnable() {
+                        @Override
+                        public void run() {
+                            RoleMenuSpecificRole.openSpecificRoleMenu(p, role);
+                        }
+                    });
                 }else{
                     removeAll(p);
                 }
@@ -153,39 +197,64 @@ public class EnterValue {
     }
 
     public static void openLastInventory(Player p) {
-        if(forWhat.get(p).equalsIgnoreCase("prefix") || forWhat.get(p).equalsIgnoreCase("suffix")) {
-            if(NewPermManager.playerHasPermission(p, permPlayer)) {
-                PlayerMenu.openPlayerMenu(p, PlayerMenu.playerMenu.get(p));
-            }else{
+        if (forWhat.get(p).equalsIgnoreCase("prefix") || forWhat.get(p).equalsIgnoreCase("suffix")) {
+            if (NewPermManager.playerHasPermission(p, permPlayer)) {
+                Bukkit.getScheduler().runTask(NewPerm.getInstance(), new Runnable() {
+                    @Override
+                    public void run() {
+                        PlayerMenu.openPlayerMenu(p, PlayerMenu.playerMenu.get(p));
+                    }
+                });
+            } else {
                 removeAll(p);
             }
-        }else if(forWhat.get(p).equalsIgnoreCase("perm")) {
-            if(NewPermManager.playerHasPermission(p, permPlayer)) {
+        } else if (forWhat.get(p).equalsIgnoreCase("perm")) {
+            if (NewPermManager.playerHasPermission(p, permPlayer)) {
                 int page = PlayerPermissionMenu.playerPermPage.get(p);
-                PlayerPermissionMenu.openPermissionMenu(p, PlayerMenu.playerMenu.get(p), page);
-            }else{
+                Bukkit.getScheduler().runTask(NewPerm.getInstance(), new Runnable() {
+                    @Override
+                    public void run() {
+                        PlayerPermissionMenu.openPermissionMenu(p, PlayerMenu.playerMenu.get(p), page);
+                    }
+                });
+            } else {
                 removeAll(p);
             }
-        }else if(forWhat.get(p).equalsIgnoreCase("rolePrefix") || forWhat.get(p).equalsIgnoreCase("roleSuffix")) {
-            if(NewPermManager.playerHasPermission(p, permRole)) {
+        } else if (forWhat.get(p).equalsIgnoreCase("rolePrefix") || forWhat.get(p).equalsIgnoreCase("roleSuffix")) {
+            if (NewPermManager.playerHasPermission(p, permRole)) {
                 String role = RoleMenu.roleMenu.get(p);
-                RoleMenuSpecificRole.openPlayerMenu(p, role);
-            }else{
+                Bukkit.getScheduler().runTask(NewPerm.getInstance(), new Runnable() {
+                    @Override
+                    public void run() {
+                        RoleMenuSpecificRole.openSpecificRoleMenu(p, role);
+                    }
+                });
+            } else {
                 removeAll(p);
             }
-        }else if(forWhat.get(p).equalsIgnoreCase("rolePerm")) {
-            if(NewPermManager.playerHasPermission(p, permRole)) {
+        } else if (forWhat.get(p).equalsIgnoreCase("rolePerm")) {
+            if (NewPermManager.playerHasPermission(p, permRole)) {
                 String role = RoleMenu.roleMenu.get(p);
                 int page = RolePermissionMenu.rolePermissionPage.get(p);
-                RolePermissionMenu.openPermissionMenu(p, role, page);
-            }else{
+                Bukkit.getScheduler().runTask(NewPerm.getInstance(), new Runnable() {
+                    @Override
+                    public void run() {
+                        RolePermissionMenu.openPermissionMenu(p, role, page);
+                    }
+                });
+            } else {
                 removeAll(p);
             }
-        }else if(forWhat.get(p).equalsIgnoreCase("role")) {
-            if(NewPermManager.playerHasPermission(p, permRole)) {
+        } else if (forWhat.get(p).equalsIgnoreCase("role")) {
+            if (NewPermManager.playerHasPermission(p, permRole)) {
                 int page = RoleMenu.roleMenuPage.get(p);
-                RoleMenu.openRoleMenu(p, page);
-            }else{
+                Bukkit.getScheduler().runTask(NewPerm.getInstance(), new Runnable() {
+                    @Override
+                    public void run() {
+                        RoleMenu.openRoleMenu(p, page);
+                    }
+                });
+            } else {
                 removeAll(p);
             }
         }
